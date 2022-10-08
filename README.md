@@ -1,6 +1,6 @@
 ## Movie API
 
-A Express Typescript API application for managing movies & torrents like yts.mx API.
+Express Typescript API application for managing movies & torrents like yts.mx API.
 
 **Used Technologies**: 
 
@@ -23,3 +23,6 @@ To build the app run `yarn build` / `npm run build`;
 
 - Build the docker image `docker build . -t movies-api`
 - Running the container `docker run -p 5000:5000 movies-api`
+
+
+Integrated [AdminBro](https://beta.adminbro.com/) Dashboard on `/admin`, you can login with `admin:admin`
