@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { MovieController } from "../controllers";
+import { MovieController, TorrentController } from "../controllers";
 import {
   TListAllRequest,
   TPostNewRequest,
@@ -27,6 +27,16 @@ router.get("/getAll", async (req: TListAllRequest, res: Response) => {
     payload: response,
   });
 });
+
+router.get("/:id", async (req: TDeleteByIdRequest, res: Response) => {
+  const { id } = req.params;
+  const response = await MovieController.getById(id);
+  res.json({
+    status: "Success",
+    payload: response,
+  });
+});
+
 
 router.post("/createNew", async (req: TPostNewRequest, res: Response) => {
   const movie = req.body;
@@ -62,11 +72,13 @@ router.put(
     const { id } = req.params;
     const torrent = req.body;
     try {
-      const response = await MovieController.addTorrent(id, torrent);
-
+      const { result, newTorrentId } = await MovieController.addTorrent(id, torrent);
       res.json({
         status: "Success",
-        payload: response,
+        payload: {
+          result,
+          newTorrentId
+        },
       });
     } catch (error: any) {
       res.status(400).json({
@@ -89,6 +101,10 @@ router.delete("/delete/:id", async (req: TDeleteByIdRequest, res: Response) => {
 
 router.delete("/clear", async (req, res) => {
   await MovieController.clear();
+  await TorrentController.clear();
+  res.json({
+    "status": "OK"
+  })
 });
 
 export default router;
