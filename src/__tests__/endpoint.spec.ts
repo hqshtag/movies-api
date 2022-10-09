@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 
 
 beforeAll(async () => {
-  await mongoose.connect("mongodb+srv://admin:root@coster.weyyk07.mongodb.net/movies?retryWrites=true&w=majority");
+  const url = process.env.MONGODB_URL as string
+  await mongoose.connect(url);
 })
 /* Closing database connection after each test. */
 afterAll(async () => {

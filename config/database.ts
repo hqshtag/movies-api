@@ -1,11 +1,10 @@
-import mongoose, { MongooseError } from 'mongoose'
+import mongoose from 'mongoose'
 
 
 
 export default async () => {
   const URL =
-    process.env.MONGODB_URI ||
-    'mongodb+srv://admin:root@coster.weyyk07.mongodb.net/movies?retryWrites=true&w=majority'
+    process.env.MONGODB_URL as string;
   try {
     const connection = await mongoose.connect(URL)
     console.log(`Connected to MONGODB`);
